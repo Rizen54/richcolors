@@ -98,7 +98,7 @@ def visualize_palette(hex_codes, image_width, image_height, outline_width=5, num
     return img
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description="Visualize a color palette from hex codes.")
     parser.add_argument("hex_codes_file", help="Path to the file containing hex codes.")
     parser.add_argument("image_name", help="Name of the output image file.")
@@ -121,3 +121,7 @@ if __name__ == "__main__":
         print("Image saved as", args.image_name)
     else:
         print("No hex codes found in the file.")
+
+
+if __name__ == "__main__":
+    main()
