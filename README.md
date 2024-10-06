@@ -28,7 +28,7 @@ cd richcolors/
 python3 -m pip install -r requirements.txt
 chmod +x richcolors
 sudo cp richcolors /usr/local/bin/richcolors
-alias richcolors='python3 /usr/local/bin/richcolors
+alias richcolors='python3 /usr/local/bin/richcolors'
 ```
 
 Lastly, add this line to the end of your `.bashrc` or `.zshrc`:
