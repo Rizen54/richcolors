@@ -33,15 +33,14 @@ def parse_hex_codes(filename):
     return hex_codes
 
 
-def visualize_palette(hex_codes, rect_width, rect_height, max_columns=8, background_color="#0c0f1c", border_color="#0c0f1c", padding=5, outline_width=5):
+def visualize_palette(hex_codes, image_width, image_height, outline_width=5, num_columns=5, background_color="#0c0f1c", border_color="#0c0f1c", padding=5):
     """Visualizes a color palette from hex codes.
 
     Args:
         hex_codes: A list of hex color codes.
         rect_width: Width of each rectangle.
         rect_height: Height of each rectangle.
-        spacing: Spacing between rectangles.
-        max_columns: Maximum number of columns in the table.
+        num_columns: Maximum number of columns in the table. -> THIS DOESNT WORK BUT DONT TOUCH IT CUZ IDK HOW IT WORKS.
         background_color: Background color of the image.
         border_color: Border color of the rectangles.
         padding: Padding around the rectangle group.
@@ -54,18 +53,32 @@ def visualize_palette(hex_codes, rect_width, rect_height, max_columns=8, backgro
     num_colors = len(hex_codes)
 
     # Calculate the number of rows and columns needed
-    num_columns = min(num_colors, max_columns)
-    num_rows = (num_colors + num_columns - 1) // num_columns
+    # DO NOT TOUCH THIS
 
-    # Calculate the overall image dimensions based on the rectangle dimensions, spacing, and padding
-    image_width = num_columns * rect_width + (num_columns - 1) + 2 * padding
-    image_height = num_rows * rect_height + (num_rows - 1) + 2 * padding
+    num_columns = min(num_colors, num_columns)
+    unfinished_row = 0
+
+    if (num_colors % num_columns) != 0:
+        unfinished_row = 1
+
+    num_rows = ((num_colors // num_columns) + unfinished_row)
+    print(num_rows)
+
+    # Calculate the rect dimensions based on the image dimensions, spacing, and padding
+    # rect_width = ((image_width - 2*padding + outline_width) - num_columns*outline_width) / num_columns
+    # rect_height = ((image_height - 2*padding + outline_width) - num_rows*outline_width) / num_rows
+    rect_width = ((image_width + padding + outline_width) - num_columns*outline_width) / num_columns
+    rect_height = ((image_height + padding + outline_width) - num_rows*outline_width) / num_rows
+    #rect_width = ((image_width) - num_columns*outline_width) / num_columns
+    #rect_height = ((image_height) - num_rows*outline_width) / num_rows
+    print(rect_width)
+    print(rect_height)
 
     img = Image.new('RGB', (image_width, image_height), background_color)  # Set background color
     draw = ImageDraw.Draw(img)
 
     # Draw the padding rectangle
-    draw.rectangle([(0, 0), (image_width, image_height)], outline=border_color)
+    draw.rectangle([(0, 0), (image_width+padding, image_height+padding)], outline=border_color)
 
     x, y = padding, padding  # Start drawing rectangles inside the padding
     for hex_code in hex_codes:
@@ -84,6 +97,7 @@ def visualize_palette(hex_codes, rect_width, rect_height, max_columns=8, backgro
 
     return img
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Visualize a color palette from hex codes.")
     parser.add_argument("hex_codes_file", help="Path to the file containing hex codes.")
@@ -93,10 +107,15 @@ if __name__ == "__main__":
     hex_codes = parse_hex_codes(args.hex_codes_file)
 
     if hex_codes:
-        rect_width = 50
-        rect_height = 30
+        image_width = int(input("Enter image width: "))
+        image_height = int(input("Enter image height: "))
+        # outline_width = int(input("Enter spacing: "))
+        # cols = int(input("Enter number of columns: "))
 
-        img = visualize_palette(hex_codes, rect_width, rect_height)
+        outline_width = 5
+        cols = 5
+
+        img = visualize_palette(hex_codes, image_width, image_height, outline_width, cols)
 
         img.save(args.image_name)
         print("Image saved as", args.image_name)
