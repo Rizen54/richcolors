@@ -8,7 +8,7 @@
 
 <h3 >Sample Output: <h3>
 
-<img src="Images/sample_output.png" alt="Sample Output Image" width="50">
+<img src="Images/sample_output.png" alt="Sample Output Image" width="417">
 
 </div>
 
