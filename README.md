@@ -39,7 +39,7 @@ alias richcolors='python3 /usr/local/bin/richcolors'
 
 ## Socials
 You can checkout my socials at my profile repo.
-:speech_balloon: My Discord server if you're interested in my projs: [Rizen's Server](https://discord.gg/BSCkxtxNJ6)
+💬 My Discord server if you're interested in my projs: [Rizen's Server](https://discord.gg/BSCkxtxNJ6)
 
 ## Stars
 Please support me by giving a star to this repo.
